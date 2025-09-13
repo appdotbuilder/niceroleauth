@@ -1,11 +1,12 @@
 from app.database import create_tables
-from nicegui import ui
+from app.services.user_service import create_default_users_and_roles
+import app.pages.login
+import app.pages.dashboard
 
 
 def startup() -> None:
     # this function is called before the first request
     create_tables()
-
-    @ui.page("/")
-    def index():
-        ui.label("🚧 Work in progress 🚧").style("font-size: 2rem; text-align: center; margin-top: 2rem")
+    create_default_users_and_roles()
+    app.pages.login.create()
+    app.pages.dashboard.create()
